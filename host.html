@@ -1,0 +1,77 @@
+<html>
+	<head>
+		<title>Host</title>
+		<style type="text/css">
+			body {
+                background-image: url('http://cdn.backgroundhost.com/backgrounds/subtlepatterns/woven.png');
+                color: white;
+                text-align: center;
+            }
+            * {
+                font-family: 'Comfortaa', cursive;
+
+            }
+            input[type=submit] {
+                background-color: blue;
+                padding: 1%;
+                color: white;
+                border-radius: 8px;
+                border: none;
+            }
+            .board_name {
+                padding: 0.5%;
+                margin: 0.5%;
+                border-radius: 8px;
+                border: 2px inset red;
+            }
+            .subboard {
+                //border: 2px inset green;
+            }
+            input {
+                color: black;
+            }
+            input[type=file] {
+                color: white;
+            }
+
+            .content {
+                //border: 2px solid red;
+                //overflow: hidden;
+            }
+            .menu {
+                float: right;
+                width: 100%;
+                margin-bottom: 2%;
+                //border: 2px solid white;
+                padding: 1%;
+            }
+            .menu a {
+                width: 5%;
+                display: block;
+                margin-right: 1%;
+                float: right;
+                background-color: lightblue;
+                text-decoration: none;
+                padding: 0.5%;
+                border-radius: 8px;
+            }
+		</style>
+	</head>
+	<body style="text-align: center;">
+		<form method="post" enctype="multipart/form-data" action="host_render.php">
+			Username:
+			<input type="text" name="username">
+			<br>
+			Filename:
+			<input type="text" name="name">
+			<br>
+			Type:
+			<input type="text" name="mime">
+			<br>
+			Select  the file:
+			<input type="file" name="file">
+			<br>
+			<input type="submit" >
+		</form>
+	</body>
+</html>

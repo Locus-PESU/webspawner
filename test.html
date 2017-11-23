@@ -1,0 +1,34 @@
+
+<html>
+  <head>
+    <style>
+        #sourceTA {
+            display: block;
+        }
+        #targetDiv {
+          border: 1px dashed #333333;
+          width: 600px;
+          height: 400px;
+        }
+    </style>
+  </head>
+  <body>
+    <textarea id="sourceTA" rows="10" cols="82"></textarea>
+        <hr/>
+        <button id="runBtn" onClick="run()">Convert</button>
+        <hr/>
+        <div id="targetDiv"></div>
+
+        <script src="https://cdn.rawgit.com/showdownjs/showdown/1.0.1/dist/showdown.min.js"></script>
+        <script>
+            function run() {
+                var text = document.getElementById('sourceTA').value,
+                    target = document.getElementById('targetDiv'),
+                    converter = new showdown.Converter(),
+                    html = converter.makeHtml(text);
+
+                  target.innerHTML = html;
+              }
+        </script>
+  </body>
+</html>

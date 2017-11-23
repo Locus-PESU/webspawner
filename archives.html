@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		*
+        {
+            color: #4CAF50 ;
+            font-family: Purisa;
+        }
+	</style>
+</head>
+<body style ="
+                background-image: url('http://cdn.backgroundhost.com/backgrounds/subtlepatterns/retina_wood.png');
+                text-align: center;
+            ">
+	{% for i in blogs %}
+	<div onclick="foo('{{i.2}}','{{i.5}}');">
+	<h3> {{ i.2 }} </h3>
+	<label>Author:  {{ i.1 }} Published on: {{ i.5 }} </label>
+	</div>
+	{% endfor %}
+	<script type="text/javascript">
+		function foo (title, time)
+		{
+			var l = "show.php?title=" + title + "&time=" + time;
+                window.location.href = l;
+		}
+	</script>
+</body>
+</html>

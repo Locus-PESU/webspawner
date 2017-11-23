@@ -1,0 +1,33 @@
+<html>
+    <head>
+        <title></title>
+        <style type="text/css">
+        *
+        {
+            color: black ;
+        }
+        </style>
+    </head>
+    <body style ="
+                background-image: url('http://cdn.backgroundhost.com/backgrounds/subtlepatterns/retina_wood.png');
+                text-align: center;
+            ">
+        <div>
+        <h1> {{ blog.title }} </h1>
+        <label> Author :  {{ blog.username }}</label>
+        <label>Created On:  {{ blog.create_on }} </label>
+        <div id = "blog"></div>
+        </div>
+        <script src="https://cdn.rawgit.com/showdownjs/showdown/1.0.1/dist/showdown.min.js"></script>
+        <script>
+            var l = `{{ blog.blog }}`;
+            console.log(l);
+            var text = l;
+            target = document.getElementById('blog')
+            converter = new showdown.Converter();
+            html = converter.makeHtml(text);
+            console.log(html);
+            target.innerHTML = html;
+        </script>
+    </body>
+</html>
