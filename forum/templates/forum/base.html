@@ -1,0 +1,176 @@
+<html>
+    <head>
+        <style>
+            ul.menu {
+                list-style-type: none;
+                margin: 0;
+                padding: 0;
+                overflow: hidden;
+                background-color: black;
+                position: fixed;
+                top: 0;
+                width: 7%;
+
+                //border: 1px solid #e7e7e7;
+                z-index: 3;
+            }
+            li {
+                float: left;
+                //border-right: 1px solid #bbb;
+            }
+            li:last-child {
+                border-right: none;
+            }
+            li a {
+                display: block;
+                width: 100%;
+                color: white;
+                text-align: center;
+                padding: 14px 16px;
+                text-decoration: none;
+                border-radius: 8px;
+            }
+            .active {
+                background-color: #AFEEEE;
+                color: black;
+            }
+            * {color: white}
+            .button {
+                background-color: gray;
+                border-radius: 10px;
+                padding: 10px;
+                border: 2px solid white;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                //font-size: 16px;
+                cursor: pointer;
+                outline: none;
+            }
+            #quote_button {color: black}
+            img {opacity: 0.9; filter: alpha(opacity=50);}
+            html {
+                height: 100%;
+                }
+
+            #stats {
+                background-color: black;
+                opacity: 0.6;
+                width: 30%;
+                margin: auto;
+                clear: left;
+            }
+            body {
+                background-image: url("{{ forum.bg.url }}");
+                height: 100%;
+                background-position: center;
+                background-repeat: repeat-y;
+                background-size: cover;
+            }
+            #upper_part {
+                background-image: url("{{ forum.thumb.url }}");
+                background-repeat: no-repeat;
+                background-position: center;
+                background-size: cover;
+                z-index: -1;
+
+                top: 40px
+            }
+            #main_head {color: Blue}
+            #quote {font-style: oblique;}
+            #live_time {font-family: monospace;}
+            #block_quote {
+                position: relative;
+                left: 450;
+                opacity: 0.7;
+                background-color: black;
+                width: 600px;
+            }
+            .spec_point {font-family: serif;}
+
+            #main_menu {
+                position: relative;
+                top: 300px;
+            }
+
+        {% block css_style %}
+        .page_content {
+            color: black;
+            font-family: sans-serif;
+        }
+        {% endblock %}
+        </style>
+
+        <title>{% block title %}Lambsteak Lab{% endblock %}</title>
+    </head>
+
+
+    <body class='bg'>
+        <div id="upper_part">
+            <br /><br />
+            <p align="right">
+                <a href="/" class="button" style="font-size:80%;background-color: blue">Home</a>
+                <a href="/profile_settings"><button class="button" style="font-size:80%;background-color: blue">
+                    {{ member }}</button></a>
+                <a href="/guestpage/"><button class="button" style="font-size:80%;background-color: blue">
+                {% block login_button %}Log In{% endblock %}</button></a></p>
+        <h1 id='main_head' align='center'>
+            <!--img src="/static/logo1.png" height="100", width="175"--></h1>
+
+        <!--p align="center">A Random Quote for the Moment:</p -->
+        <div id="block_quote">
+        <h4 id='quote' align='center'>
+            {{ forum.description }}
+        </h4>
+        <div class='spec_point' align='center'><p id='author'>{{ forum.punchline }}</p>
+        </div>
+    </div>
+
+        <script>
+        function another_quote() {
+            var request = new XMLHttpRequest()
+            request.open("GET", "/new_quote/", true)
+            request.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    quote = this.responseText.split('\t')[0]
+                    author = this.responseText.split('\t')[1]
+                    document.getElementById('quote').innerHTML = quote
+                    //auth = document.getElementsByClassName('spec_point')
+                    //auth = auth[0]
+                    document.getElementById('author').innerHTML = '- ' + author
+                }
+            }
+            request.send()
+
+        }
+        </script>
+        <p align="center"><button class="button" onclick="another_quote()">Next Quote</button>
+        </p>
+    </div>
+    <div id="main_menu">
+        <ul class="menu">
+        </ul>
+    </div>
+
+        <div id="page_content">
+        {% block content %}
+            <p>f kdkd vkfd vf rfgr</p>
+        <h2 align='center'>The site is under construction.
+            Visit back in a few days!
+        </h2>
+        {% endblock %}
+        </div>
+    <div id="stats" style="margin-bottom:1%;">
+        <p id='live_time' align='center'></p>
+        <p align='center' style="font-family: monospace;">
+
+        </p>
+    </div>
+        <script>
+        var x = setInterval(function() {
+            var now = new Date()
+            document.getElementById('live_time').innerHTML = now
+        }, 1000)
+        </script>
+    </body>
+</html>

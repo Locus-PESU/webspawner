@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Webspawner | Create a new website</title>
+        <link href='https://fonts.googleapis.com/css?family=Comfortaa' rel='stylesheet' type='text/css'>
+        <style media="screen">
+            body {
+                background-image: url('http://cdn.backgroundhost.com/backgrounds/subtlepatterns/woven.png');
+                color: white;
+                text-align: center;
+            }
+            * {
+                font-family: 'Comfortaa', cursive;
+
+            }
+            input[type=submit] {
+                background-color: blue;
+                padding: 1%;
+                color: white;
+                border-radius: 8px;
+                border: none;
+            }
+            .board_name {
+                padding: 0.5%;
+                margin: 0.5%;
+                border-radius: 8px;
+                border: 2px inset red;
+            }
+            .subboard {
+                //border: 2px inset green;
+            }
+            input {
+                color: black;
+            }
+            input[type=file] {
+                color: white;
+            }
+
+            .content {
+                //border: 2px solid red;
+                //overflow: hidden;
+            }
+            .menu {
+                float: right;
+                width: 100%;
+                margin-bottom: 2%;
+                //border: 2px solid white;
+                padding: 1%;
+            }
+            .menu a {
+                width: 5%;
+                display: block;
+                margin-right: 1%;
+                float: right;
+                background-color: lightblue;
+                text-decoration: none;
+                padding: 0.5%;
+                border-radius: 8px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="menu">
+            <a href="/logout/">Sign Out</a>
+            <a href="/">Home</a>
+            <a href="/profile_settings">{{ user.username }}</a>
+        </div>
+        <div class="content">
+            <h1>Create New Forum</h1>
+            <form  action="/new_forum/" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+                <input type="text" name="name" placeholder="Name" required>
+                <br />
+                <div class="already_exists">{{ already_exists }}</div>
+                <br><textarea name="description" rows="10" cols="60"
+                placeholder="Description" required></textarea><br>
+                <input type="text" name="punchline" placeholder="Punchline"><br><br>
+                Cover Image: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                &nbsp&nbsp&nbsp&nbsp
+                <input type="file" name="cover" accept="image/*"><br><br>
+                Background Image:&nbsp&nbsp&nbsp&nbsp&nbsp <input type="file" name="bg" accept="image/*"><br><br>
+                Second background image:&nbsp&nbsp <input type="file"
+                name="bg_thread">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                <br>
+                <br><br>
+                {% for j in n_boards %}
+                <input type="text" name="board{{ j }}" class="board_name" placeholder="Board name">
+                <br>
+                {% for i in n_subboards %}
+                <input type="text" name="sb{{ j }}_{{ i }}" class="subboard" placeholder="Subboard name">
+                <br>
+                {% endfor %}
+                <br>
+                {% endfor %}
+                <input type="submit" value="Create Forum">
+            </form>
+        </div>
+
+    </body>
+</html>

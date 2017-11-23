@@ -1,0 +1,92 @@
+{% extends "forum/base.html" %}
+{% block title %}Webspawner | {{ forum.name }}{% endblock %}
+{% block css_style %}
+#page_content {
+    color: black;
+}
+#forum_body {
+    background-color: black;
+    width: 60%;
+    margin: auto;
+    margin-top: 40px;
+    padding: 40px;
+    opacity: 0.9;
+}
+#search_field {
+    float: right;
+    width: 10%;
+    margin-right: 40px;
+}
+.category {
+    margin: 10px;
+    padding: 10px;
+    overflow: hidden;
+}
+.heading {
+    position: relative;
+    top: 0px;
+    font-family: fantasy;
+    margin: 5px;
+    float: none;
+    clear: both;
+    width: 20%;
+}
+.subcategory {
+    float: left;
+    clear: right;
+    width: 17%;
+    height: 10%;
+    margin: 10px;
+    border: 2px solid gray;
+    padding: 10px;
+    display: table-cell;
+    vertical-align:middle;
+    background-color: black;
+    border-radius: 8px;
+    font-family: sans-serif;
+    font-weight: bold;
+    z-index: 2
+}
+input {
+    padding: 5px 5px;
+    //margin: 8px 5px;
+    //box-sizing: border-box;
+    border: 1px solid black;
+    border-radius: 4px;
+    color: black;
+}
+input[type=submit] {
+    background-color: darkgrey;
+}
+a.board_link {
+    display: block;
+}
+a.board_link: hover {
+    background-color:  #AFEEEE;
+}
+{% endblock %}
+{% block login_button %}{{ login_button }}{% endblock %}
+{% block content %}
+<div id="search_field">
+    <!--form action="search/" method="POST">
+        {% csrf_token %}
+        <input type="text" name="search_key" placeholder="Search all forums">
+        <input type="submit" value="Search">
+    </form-->
+</div>
+<div id="forum_body">
+    {% for k, v in categs.items %}
+    <div class="category">
+        <div class="heading">{{ k }}</div>
+        {% for ele in v %}
+            <a href="/forum/board/{{ ele.id }}/1/" class="board_link">
+                <div class="subcategory"><p align='center'>{{ ele.name }}<br />
+                <div style="font-size: 75%;text-align:center;margin:3px;">
+                    {{ ele.last_thread_on|default_if_none:'' }}</div></p>
+                </div></a>
+        {% endfor %}
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
+{% block forum %}<a href="/forum/" class="active">Forum</a>{% endblock %}

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <style>
+        * {
+            color: white;
+        }
+        body {
+            background-image: url('/static/starry_nights.jpg');
+            height: 100%;
+            background-position: center;
+            background-repeat: repeat-y;
+            background-size: cover;
+        }
+        #content_box {
+            opacity: 0.8;
+            background-color: black;
+            border: 2px solid grey;
+            width: 70%;
+            float: left;
+            margin: auto;
+            margin-left: 20px;
+            padding: 30px;
+            overflow: hidden;
+        }
+        #heading {
+            text-align: center;
+            font-family: fantasy;
+            font-stretch: semi-expanded;
+        }
+        div.tool_options {
+            float: right;
+            margin-bottom: 20px;
+
+        }
+        #send_dm {
+            width: auto;
+            background-color: green;
+            border: 2px solid white;
+            border-radius: 8px;
+            padding: 10px;
+
+        }
+        a.tool_options {
+            display: block;
+            text-decoration: none;
+            color: white;
+            font-family: Helvetica;
+        }
+        #posts_table {
+            clear: both;
+        }
+        ul.menu {
+                list-style-type: none;
+                margin: 0;
+                padding: 0;
+                width: 150px;
+                background-color: #f1f1f1;
+        }
+        li.menu_link a {
+            display: block;
+            color: #000;
+            padding: 8px 16px;
+            text-decoration: none;
+        }
+        li.menu_link a:hover {
+            background-color: #555;
+            color: white;
+        }
+        .active {
+            background-color: #AFEEEE;
+        }
+        #main_menu {
+            margin-top: 20px;
+            float: left;
+            width: 150px;
+            overflow: hidden;
+        }
+        table {
+            border-collapse: separate;
+            border-spacing: 0 1em;
+        }
+        </style>
+        <title>Lambsteak Lab | Member: {{ user.username }}</title>
+    </head>
+    <body>
+        <div id="main_menu">
+            <ul class="menu">
+                <li class="menu_link"><a href="/">Home</a></li>
+                <li class="menu_link"><a href='/tools/'>Tools</a></li>
+                <li class="menu_link"><a href="/nn/">Neural Network</a></li>
+                <li class="menu_link"><a href="/rl/">Reinforcement Learning</a></li>
+                <li class="menu_link"><a href="/blog/">Blog</a></li>
+                <li class="menu_link"><a href="/forum/" class="active">Forum</a></li>
+                <li class="menu_link"><a href="/about/">About</a></li>
+            </ul>
+        </div>
+        <div id="content_box">
+            <h1 id="heading">{{ user.username }}</h1>
+            <div class="tool_options">
+                <div id="send_dm">
+                    <a href="/forum/send_dm/{{ user.id }}" class="tool_options">
+                        Send DM</a>
+                </div>
+            </div>
+            <div id="posts_table">
+                <table>
+                    {% for post in posts %}
+                    <tr>
+                        <td style="width:25%;">
+                            <a href="/forum/thread/{{ post.thread.id }}/1/">
+                                 {{ post.thread.title }}</a>
+                        </td>
+                        <td style="width:15%;font-family:monospace;font-size:90%;">
+                            {{ post.thread.last_post_on }}
+                        </td>
+                        <td style="width:60%;">
+                            {{ post.content|truncatewords:30 }}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+    </body>

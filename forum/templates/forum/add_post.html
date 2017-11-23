@@ -1,0 +1,50 @@
+<html>
+    <head>
+        <title>Lambsteak Lab: Log In</title>
+        <style>
+        .bg {
+            background-image: url('/static/monet.jpg');
+            height: 100%;
+            background-position: center;
+            background-repeat: repeat-y;
+            background-size: cover;
+        }
+        input {
+            width: 75%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            clear: both;
+            box-sizing: border-box;
+            border: 2px solid green;
+            border-radius: 4px;
+        }
+        input[type='submit'] {
+            width: 50%;
+        }
+
+        #guest_form {
+            position: relative;
+            margin-top: 50px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 30px;
+            width: 40%;
+            padding: 20px;
+            background-color: white;
+            opacity: 0.9;
+
+        }
+        </style>
+    </head>
+    <body class='bg'>
+        <div id="guest_form">
+            <h2>Create New Post</h2>
+            <form action="/forum/upload_new_post/{{ id }}/" method="POST">
+                {% csrf_token %}
+                <label for="id_content">Content: </label><br /><br />
+                <textarea name="content" required cols="80" rows="15" id="id_content"></textarea>
+                <input type="submit" value="Create Post">
+            </form>
+        </div>
+    </body>
+</html>

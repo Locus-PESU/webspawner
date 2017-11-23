@@ -1,0 +1,112 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Welcome to Webspawner</title>
+        <!--link rel="stylesheet" href="{% static 'style.css' %}"-->
+<link href='https://fonts.googleapis.com/css?family=Comfortaa' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+        <style media="screen">
+            * {
+                font-family: 'Comfortaa', cursive;
+            }
+            body {
+                background-image: url('http://cdn.backgroundhost.com/backgrounds/subtlepatterns/pool_table.png');
+                background-repeat: repeat;
+                color: #8B4513;
+
+            }
+            .heading {
+                font-family: 'Raleway', sans-serif;
+                //color: black;
+            }
+            .description_box {
+                width: 35%;
+                float: left;
+                margin-left: 3%;
+                text-align: center;
+                font-family: sans-serif;
+                background-color: #fffaf0;
+                color: black;
+                padding: 5%;
+                line-height: 150%;
+                border-radius: 16px;
+                //opacity: 0.9;
+                //border: 2px solid black;
+            }
+            .description_box2 {
+                width: 35%;
+                float: left;
+                margin-left: 3%;
+                text-align: center;
+                font-family: sans-serif;
+                background-color: #FFF8DC;
+                padding: 5%;
+                line-height: 150%;
+                //border: 2px solid black;
+                border-radius: 16px;
+            }
+            .mini_desc {
+                font-size: 110%;
+                font-weight: bolder;
+            }
+            .sub_desc {
+                font-size: 110%;
+                //font-style: oblique;
+                font-weight: bolder;
+            }
+            #message {
+                font-size: 80%;
+                color: red;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="description_box">
+            <h2 class="heading">Welcome to Webspawner!</h2>
+            <div class="mini_desc">Webspawner lets you create your own personalized website in minutes!
+            Choose from a range of templates and start building your website.</div>
+            <form action="/login/" method="post">{% csrf_token %}
+                <h3>Log In</h3>
+                <input type="text" name="username" placeholder="Enter username" required>
+                <br />
+                <input type="password" name="password" placeholder="Enter password" required>
+                <br />
+                <div id="message">{{ auth_validity }}</div>
+                <input type="submit" value="Log In">
+            </form>
+            <br />
+            <h3>Sign Up</h3>
+            <form action="/signup/" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="text" name="username" placeholder="Enter a username" required>
+                <br />
+                <div id="message">{{ availability }}</div>
+                <input type="password" name="password" placeholder="Enter password" required>
+                <br />
+                <input type="email" name="email" placeholder="Enter email address" required>
+                <br />
+                <textarea name="quote" placeholder="Favorite quote" rows="2" cols="50"></textarea><br>
+                Display picture:
+                <input type="file" name="user_dp" accept="image/*"><br><br>
+                <input type="submit" value="Sign Up">
+            </form>
+        </div>
+        <div class="description_box2">
+            <h2 class="heading">Websites hosted on Webspawner</h2>
+            <div class="sub_desc">
+                Forums:
+                {% for forum in forums %}
+                <br />
+                <a href="/forum/{{ forum.url }}">{{ forum.name }}</a>
+                Owner: {{ forum.owner }}
+                No. of posts: {{ forum.get_post_count }}
+                No. of active members: {{ forum.get_members_count }}
+                {% endfor %}
+            </div>
+        </div>
+
+    </body>
+</html>

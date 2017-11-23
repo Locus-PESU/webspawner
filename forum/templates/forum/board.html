@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <style>
+        * {
+            color: white;
+        }
+        body {
+            background-image: url("{{ forum.bg_thread.url }}");
+            height: 100%;
+            background-position: center;
+            background-repeat: repeat-y;
+            background-size: cover;
+        }
+        #board_box {
+            opacity: 0.9;
+            background-color: black;
+            border: 2px solid grey;
+            width: 70%;
+            float: left;
+            margin: 20px;
+            margin-top: 10px;
+            padding: 30px;
+            overflow: hidden;
+        }
+        #heading {
+            text-align: center;
+            font-family: sans-serif;
+            font-stretch: semi-expanded;
+        }
+        div.tool_options {
+            float: right;
+            margin-bottom: 20px;
+
+        }
+        #add_thread {
+            width: auto;
+            background-color: green;
+            border: 2px solid white;
+            border-radius: 8px;
+            padding: 10px;
+            outline: none;
+        }
+        #add_thread a {
+            display: block;
+        }
+        a.tool_options {
+            display: block;
+            text-decoration: none;
+            color: white;
+            font-family: Helvetica;
+        }
+        a.thread_desc {
+            text-decoration: none;
+            font-weight: bold;
+            font-family: sans-serif;
+            color: white;
+        }
+        #threads_table {
+            clear: both;
+        }
+        ul.menu {
+                list-style-type: none;
+                margin: 0;
+                padding: 0;
+                width: 150px;
+                background-color: #f1f1f1;
+        }
+        li.menu_link a {
+            display: block;
+            color: #000;
+            padding: 8px 16px;
+            text-decoration: none;
+            border-bottom: 1px solid black;
+        }
+        li.menu_link a:hover {
+            background-color: #555;
+            color: white;
+        }
+        .active {
+            background-color: #AFEEEE;
+        }
+        #main_menu {
+            margin-top: 10px;
+            float: left;
+            width: 150px;
+            overflow: hidden;
+            //border-radius: 8px;
+        }
+        #path_tree {
+            margin-bottom: 10px;
+            margin-top: 10px;
+            margin-left: 20px;
+            margin-bottom: 0px;
+            width: 70%;
+            float: left;
+            font-size: 120%;
+
+        }
+        #path_tree a {
+            text-decoration: none;
+            font-family: sans-serif;
+        }
+        table { border-collapse: separate; border-spacing: 15px; }
+        </style>
+        <title>Webspawner | Forum: {{ title }}</title>
+    </head>
+    <body>
+        <div id="main_menu">
+            <ul class="menu">
+                <li class="menu_link"><a href="/logout/">Sign Out</a></li>
+                <li class="menu_link"><a href="/profile_settings">{{ user.username }}</a> </li>
+            </ul>
+        </div>
+        <div id="path_tree">
+            <a href="/">Home</a> &gt <a href="/forum/{{ forum.url }}">Forum</a> &gt {{ title }}
+        </div>
+        <div id="board_box">
+            <h1 id='heading'>{{ title }}</h1>
+            <div class="tool_options">
+                <div id="add_thread">
+                    <a href="/forum/add_thread/{{ board_id }}" class="tool_options">
+                        New Thread</a>
+                </div>
+            </div>
+            <div id="threads_table">
+            <table>
+
+                {% for pinned in pinneds %}
+                <tr>
+                    <td style="width:10%;font-family:serif;font-size:60%;">PINNED</td>
+                    <td style="width:50%;"><a class="thread_desc" href="/forum/thread/{{ pinned.id }}/1/">
+                        {{ pinned.title }}</a></td>
+                    <td style="width:10%;">{{ pinned.post_count }}</td>
+                    <td style="width:15%;">{{ pinned.creator }}</td>
+                    <td style="width:15%; font-size:90%;">{{ pinned.last_post_on }}</td>
+                </tr>
+                {% endfor %}
+                {% for pinned in anns %}
+                <tr>
+                    <td style="width:10%;font-family:serif;font-size:60%;">ANNOUNCEMENT</td>
+                    <td style="width:50%;"><a class="thread_desc" href="/forum/thread/{{ pinned.id }}/1/">
+                        {{ pinned.title }}</a></td>
+                    <td style="width:10%;">{{ pinned.post_count }}</td>
+                    <td style="width:15%;">{{ pinned.creator }}</td>
+                    <td style="width:15%; font-size:90%;">{{ pinned.last_post_on }}</td>
+                </tr>
+                {% endfor %}
+                {% for pinned in threads %}
+                <tr>
+                    <td style="width:10%;font-family:serif;font-size:60%;">NORMAL</td>
+                    <td style="width:50%;"><a class="thread_desc" href="/forum/thread/{{ pinned.id }}/1/">
+                        {{ pinned.title }}</a></td>
+                    <td style="width:10%;">{{ pinned.post_count }}</td>
+                    <td style="width:15%;">{{ pinned.creator }}</td>
+                    <td style="width:15%; font-size:90%;">{{ pinned.last_post_on }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        </div>
+    </body>
+</html>

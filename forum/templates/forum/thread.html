@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <style>
+        * {
+            color: white;
+        }
+        body {
+            background-image: url("{{ forum.bg_thread.url }}");
+            height: 100%;
+            background-position: center;
+            background-repeat: repeat-y;
+            background-size: cover;
+        }
+        table {
+            border-collapse: separate;
+            border-spacing: 0 1em;
+        }
+        #thread_box {
+            opacity: 0.9;
+            background-color: black;
+            border: 2px solid grey;
+            width: 70%;
+            float: left;
+            margin: 20px;
+            padding: 30px;
+            overflow: hidden;
+        }
+        #heading {
+            text-align: center;
+            font-family: fantasy;
+            font-stretch: expanded;
+        }
+        div.tool_options {
+            float: right;
+            margin-bottom: 20px;
+
+        }
+        #add_post {
+            width: auto;
+            background-color: green;
+            border: 2px solid white;
+            border-radius: 8px;
+            padding: 10px;
+            outline: none;
+        }
+        a.tool_options {
+            display: block;
+            text-decoration: none;
+            color: white;
+            font-family: Helvetica;
+        }
+        #posts_table {
+            clear: both;
+        }
+        .avatar {
+            float: left;
+            width: auto;
+        }
+        .username {
+            margin: 8px;
+            float:left;
+            clear: left;
+            width: auto;
+        }
+        ul.menu {
+                list-style-type: none;
+                margin: 0;
+                padding: 0;
+                width: 150px;
+                background-color: #f1f1f1;
+        }
+        li.menu_link a {
+            display: block;
+            color: #000;
+            padding: 8px 16px;
+            border-bottom: 1px solid black;
+            text-decoration: none;
+        }
+        li.menu_link a:hover {
+            background-color: #555;
+            color: white;
+        }
+        .active {
+            background-color: #AFEEEE;
+        }
+        #main_menu {
+            margin-top: 10px;
+            float: left;
+            width: 150px;
+            overflow: hidden;
+            //border-radius: 8px;
+        }
+        input {
+            width: 75%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            clear: both;
+            box-sizing: border-box;
+            border: 2px solid green;
+            border-radius: 4px;
+
+        }
+        textarea {
+            color: black;
+        }
+        input[type='submit'] {
+            width: 50%;
+            background-color: black;
+            cursor: pointer;
+        }
+        #guest_form {
+            //border-top: 2px solid white;
+            clear: both;
+            position: relative;
+            margin-top: 10px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 30px;
+            //width: 40%;
+            padding: 20px;
+            background-color: black;
+            opacity: 0.9;
+
+        }
+        #path_tree {
+            margin-bottom: 10px;
+            margin-top: 10px;
+            margin-left: 20px;
+            margin-bottom: 0px;
+            width: 70%;
+            float: left;
+            font-size: 120%;
+
+        }
+        #path_tree a {
+            text-decoration: none;
+            font-family: sans-serif;
+        }
+        tr td {
+            border-top: 1px solid gray;
+            padding-top: 5px;
+        }
+        tr:last-child td {
+            border-top: 1px solid gray;
+            border-bottom: 1px solid gray;
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
+        .post_foot {
+            width: 100%;
+            margin: auto;
+            margin-top: 2em;
+            //padding: 5px;
+            //border-style: outset;
+            border-top: 1px solid darkgray;
+            //border-left: 1px solid darkgray;
+            //border-right: 1px solid darkgray;
+
+        }
+        .post_foot p {
+            padding: 0;
+            color: brown;
+        }
+        </style>
+        <title>Webspawner | Thread: {{thread.title }}</title>
+    </head>
+    <body>
+        <div id="main_menu">
+            <ul class="menu">
+                <li class="menu_link"><a href="/logout/">Sign Out</a></li>
+                <li class="menu_link"><a href="/profile_settings">{{ user.username }}</a> </li>
+            </ul>
+        </div>
+        <div id="path_tree">
+            <a href="/">Home</a> &gt <a href="/forum/{{ forum.url }}">Forum</a> &gt
+            <a href="/forum/board/{{ thread.board.id }}/1/">{{ thread.board.name }}</a> &gt
+            {{ thread.title }}
+        </div>
+        <div id="thread_box">
+            <h2 id="heading">{{ thread.title }}</h2>
+            <div class="tool_options">
+                <div id="add_post">
+                    <a href="/forum/add_post/{{ thread.id }}/" class="tool_options">
+                        New Post</a>
+                </div>
+            </div>
+            <div id="posts_table">
+                <table>
+                    {% for post in posts %}
+                    <tr>
+                        <td style="width:21%;vertical-align: top;">
+                            <div class="avatar">
+                                <img src="{{ post.get_dp_url }}" alt="" width="150"/>
+                            </div>
+                            <div class="username">
+                            <a href="/forum/display_user/{{ post.author.id }}/1/">
+                                 {{ post.author.username }}</a>
+                            </div>
+                            <div class="username">
+                            Karma: {{ post.get_karma }}
+                             </div>
+                        </td>
+                        <td style="width:79%;">
+                            <div class="content">
+                                {{ post.post_time }}<br /><br />
+                                {{ post.content|safe }}
+                            </div><br /><br />
+                            {% if post.author.quote_present %}
+                            <div class="post_foot">
+                                <p align='center'>{{ post.author.rootprofile.quote }}</p>
+                            </div>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+
+            <div id="guest_form">
+                <h2>Create New Post</h2>
+                <form action="/forum/upload_new_post/{{ id }}/" method="POST">
+                    {% csrf_token %}
+                    <label for="id_content">Content: </label><br /><br />
+                    <textarea name="content" required cols="80" rows="15" id="id_content"></textarea>
+                    <input type="submit" value="Create Post">
+                </form>
+            </div>
+        </div>
+    </body>
+</html>

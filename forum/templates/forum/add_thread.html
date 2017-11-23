@@ -1,0 +1,60 @@
+<html>
+    <head>
+        <title>Lambsteak Lab: Log In</title>
+        <style>
+        .bg {
+            background-image: url('/static/monet.jpg');
+            height: 100%;
+            background-position: center;
+            background-repeat: repeat-y;
+            background-size: cover;
+        }
+        input {
+            width: 75%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            box-sizing: border-box;
+            border: 2px solid green;
+            border-radius: 4px;
+        }
+        input[type='submit'] {
+            width: 50%;
+        }
+
+        #guest_form {
+            position: relative;
+            margin-top: 50px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 30px;
+            width: 60%;
+            padding: 20px;
+            background-color: white;
+
+        }
+        </style>
+    </head>
+    <body class='bg'>
+        <div id="guest_form">
+            <h2>Create New Thread: in <em>{{ board }}</em> Board</h2>
+            <form action="/forum/upload_new_thread/{{ id }}/" method="POST">
+                {% csrf_token %}
+                <label for="id_title">Title: </label>
+                <input type="text" name="title" maxlength="170" required id="id_title" />
+                <br />
+                <label for="id_type_">Type: </label>
+                <select name="type_" id="id_type_">
+                    <option value="NM">Normal</option>
+                    <option value="PN">Pinned</option>
+                    <option value="AM">Announcement</option>
+                </select><br /><br />
+                <label for="id_post">Post: </label><br />
+                <textarea name="post" cols="80" required rows="15" id="id_post"></textarea>
+                <br />
+                <input type="submit" value="Create Thread">
+            </form>
+            <br />
+
+        </div>
+    </body>
+</html>

@@ -1,0 +1,106 @@
+{% extends "homeapp/base.html" %}
+{% block title %}Lambsteak Lab: Forum{% endblock %}
+{% block css_style %}
+#page_content {
+    color: black;
+}
+#forum_body {
+    background-color: black;
+    width: 60%;
+    margin: auto;
+    margin-top: 40px;
+    padding: 40px;
+    opacity: 0.9;
+}
+#search_field {
+    float: right;
+    width: 10%;
+    margin-right: 40px;
+}
+.category {
+    margin: 10px;
+    padding: 10px;
+    overflow: hidden;
+}
+.heading {
+    position: relative;
+    top: 0px;
+    font-family: fantasy;
+    margin: 5px;
+    float: none;
+    clear: both;
+    width: 20%;
+}
+.subcategory {
+    float: left;
+    clear: right;
+    width: 17%;
+    height: 10%;
+    margin: 10px;
+    border: 2px solid gray;
+    padding: 10px;
+    display: table-cell;
+    vertical-align:middle;
+    background-color: black;
+    border-radius: 8px;
+    font-family: sans-serif;
+    font-weight: bold;
+    z-index: 2
+}
+input {
+    padding: 5px 5px;
+    //margin: 8px 5px;
+    //box-sizing: border-box;
+    border: 1px solid black;
+    border-radius: 4px;
+}
+input[type=submit] {
+    background-color: darkgrey;
+}
+{% endblock %}
+{% block login_button %}{{ login_button }}{% endblock %}
+{% block content %}
+<div id="search_field">
+    <form action="search/" method="POST">
+        <input type="text" name="search_key" placeholder="Search all forums">
+        <input type="submit" value="Search">
+    </form>
+</div>
+<div id="forum_body">
+    <div class="category">
+        <div class="heading">Machine Learning and AI</div>
+
+            <div class="subcategory"><p align='center'>Neural Nets</p></div>
+            <div class="subcategory"><p align='center'>Decision Trees</p></div>
+            <div class="subcategory"><p align='center'>Linear &amp Logistic Regression, SVMs</p></div>
+            <div class="subcategory"><p align='center'>Reinforcement Learning</p></div>
+
+    </div>
+    <div class="category">
+        <div class="heading">General Programming</div>
+
+            <div class="subcategory"><p align='center'>Web Scraping</p></div>
+            <div class="subcategory"><p align='center'>Data Mining</p></div>
+            <div class="subcategory"><p align='center'>Natural Language Processing</p></div>
+            <div class="subcategory"><p align='center'>Web Development</p></div>
+            <div class="subcategory"><p align='center'>System Programming</p></div>
+
+    </div>
+    <div class="category">
+        <div class="heading">Non-Programming</div>
+
+            <div class="subcategory"><p align='center'>Information Security</p></div>
+            <div class="subcategory"><p align='center'>Cryptography</p></div>
+            <div class="subcategory"><p align='center'>Neuroscience and CS</p></div>
+
+    </div>
+    <div class="category">
+        <div class="heading">General Discussion</div>
+
+            <div class="subcategory"><p align='center'>Meta-Forum</p></div>
+            <div class="subcategory"><p align='center'>Casual Discussions</p></div>
+            <div class="subcategory"><p align='center'>Miscellaneous</p></div>
+
+    </div>
+</div>
+{% endblock %}

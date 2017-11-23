@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Webspawner | Account Settings</title>
+        <link href='https://fonts.googleapis.com/css?family=Comfortaa' rel='stylesheet' type='text/css'>
+        <style media="screen">
+            body {
+                background-image: url('http://cdn.backgroundhost.com/backgrounds/subtlepatterns/woven.png');
+                color: white;
+                text-align: center;
+            }
+            * {
+                font-family: 'Comfortaa', cursive;
+
+            }
+            input[type=submit] {
+                background-color: blue;
+                padding: 1%;
+                color: white;
+                border-radius: 8px;
+                border: none;
+            }
+            .board_name {
+                padding: 0.5%;
+                margin: 0.5%;
+                border-radius: 8px;
+                border: 2px inset red;
+            }
+            .subboard {
+                //border: 2px inset green;
+            }
+            input {
+                color: black;
+            }
+            input[type=file] {
+                color: white;
+            }
+            .content {
+                //border: 2px solid red;
+                //overflow: hidden;
+            }
+            .menu {
+                float: right;
+                width: 100%;
+                margin-bottom: 2%;
+                //border: 2px solid white;
+                padding: 1%;
+            }
+            .menu a {
+                width: 8%;
+                display: block;
+                float: right;
+                background-color: lightblue;
+                text-decoration: none;
+                padding: 0.5%;
+                border-radius: 8px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="superbox">
+            <div class="menu">
+                <a href="/">Home</a>
+            </div>
+            <div class="content">
+
+                <h1>Account Settings</h1>
+                <form  action="/profile_settings/" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                    <input type="password" name="password" placeholder="New password">
+                    <br /><br>
+                    <textarea name="quote" rows="3" cols="60"
+                    placeholder="Favourite quote"></textarea><br><br>
+                    Display Picture:
+                    <input type="file" name="dp" accept="image/*"><br><br>
+
+
+                    <input type="submit" value="Update Profile">
+                </form>
+            </div>
+
+        </div>
+
+    </body>
+</html>
